@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>माहिती केंद्र - ज्ञान का भंडार</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Noto Sans Devanagari', Arial, sans-serif;
+        }
+        
+        body {
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+        }
+
+        /* Header */
+        header {
+            background: #2c3e50;
+            color: white;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            flex-wrap: wrap;
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            color: #fff;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: #f39c12;
+        }
+
+        /* Auth Container */
+        #auth-container {
+            margin-left: auto;
+            margin-right: 1rem;
+        }
+
+        .auth-form {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .auth-form input {
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .auth-btn {
+            background: #f39c12;
+            color: white;
+            border: none;
+            padding: 0.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .social-login {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .social-btn {
+            padding: 0.5rem;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            cursor: pointer;
+            flex: 1;
+            text-align: center;
+        }
+
+        #google-login { background: #DB4437; }
+        #fb-login { background: #4267B2; }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            color: white;
+            text-align: center;
+            padding: 5rem 1rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin-bottom: 2rem;
+        }
+
+        .cta-button {
+            background: #f39c12;
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background: #e67e22;
+        }
+
+        /* Blog Posts */
+        .blog-posts {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 3rem 1rem;
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .post {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            width: 350px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .post:hover {
+            transform: translateY(-5px);
+        }
+
+        .post img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .post-content {
+            padding: 1.5rem;
+        }
+
+        .post h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: #2c3e50;
+        }
+
+        .post p {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .read-more {
+            color: #f39c12;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .read-more:hover {
+            color: #e67e22;
+        }
+
+        /* Comments Section */
+        .comments-section {
+            max-width: 800px;
+            margin: 3rem auto;
+            padding: 2rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .comment-form {
+            margin-bottom: 2rem;
+        }
+
+        .comment-form textarea {
+            width: 100%;
+            padding: 0.8rem;
+            margin-bottom: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            height: 100px;
+        }
+
+        .comment {
+            padding: 1rem;
+            margin: 1rem 0;
+            border-bottom: 1px solid #eee;
+            position: relative;
+        }
+
+        .comment h4 {
+            color: #2c3e50;
+        }
+
+        .comment p {
+            color: #666;
+        }
+
+        .comment-actions {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+        }
+
+        .flag-btn {
+            background: none;
+            border: none;
+            color: #dc3545;
+            cursor: pointer;
+        }
+
+        /* Admin Panel */
+        .admin-panel {
+            background: #f8d7da;
+            padding: 1rem;
+            margin: 1rem auto;
+            max-width: 800px;
+            border-radius: 5px;
+        }
+
+        .admin-panel h3 {
+            margin-bottom: 1rem;
+            color: #721c24;
+        }
+
+        .flagged-comment {
+            background: #fff3cd;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 5px;
+        }
+
+        .moderation-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .approve-btn {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 0.3rem 0.6rem;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .delete-btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 0.3rem 0.6rem;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        /* Profile Section */
+        .profile-section {
+            max-width: 500px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .profile-avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #f39c12;
+            margin-bottom: 1rem;
+        }
+
+        .profile-upload {
+            margin-top: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        .social-links {
+            margin-bottom: 1rem;
+        }
+
+        .social-links a {
+            color: white;
+            margin: 0 0.5rem;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: #f39c12;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin-top: 1rem;
+                justify-content: center;
+            }
+            
+            #auth-container {
+                margin: 1rem auto;
+                width: 100%;
+            }
+            
+            .hero {
+                padding: 3rem 1rem;
+            }
+            
+            .hero h2 {
+                font-size: 2rem;
+            }
+            
+            .post {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="logo">
+            <h1>माहिती केंद्र</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#">होम</a></li>
+                <li><a href="#">लेख</a></li>
+                <li><a href="#">श्रेणियाँ</a></li>
+                <li><a href="#">हमारे बारे में</a></li>
+                <li><a href="#">संपर्क</a></li>
+            </ul>
+        </nav>
+        <div id="auth-container">
+            <!-- Dynamically filled by JavaScript -->
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h2>ज्ञान का भंडार</h2>
+        <p>तकनीक, स्वास्थ्य, शिक्षा और जीवन शैली से जुड़ी नवीनतम जानकारी प्राप्त करें</p>
+        <a href="#" class="cta-button">लेख पढ़ना शुरू करें</a>
+    </section>
+
+    <!-- Blog Posts Section -->
+    <section class="blog-posts">
+        <article class="post">
+            <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="टेक्नोलॉजी">
+            <div class="post-content">
+                <h3>भारत में 5G तकनीक: क्या बदलाव लाएगा?</h3>
+                <p>जानिए कैसे 5G तकनीक हमारे जीवन को बदल देगी और इसके क्या फायदे हैं...</p>
+                <a href="#" class="read-more">आगे पढ़ें</a>
+            </div>
+        </article>
+        
+        <article class="post">
+            <img src="https://images.unsplash.com/photo-1530026186672-2cd00ffc50fe?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="स्वास्थ्य">
+            <div class="post-content">
+                <h3>योग: मानसिक स्वास्थ्य के लिए उपाय</h3>
+                <p>प्रतिदिन 15 मिनट का योग आपके मानसिक स्वास्थ्य को कैसे सुधार सकता है...</p>
+                <a href="#" class="read-more">आगे पढ़ें</a>
+            </div>
+        </article>
+        
+        <article class="post">
+            <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="शिक्षा">
+            <div class="post-content">
+                <h3>ऑनलाइन शिक्षा: नए युग की शुरुआत</h3>
+                <p>कोरोना काल के बाद ऑनलाइन शिक्षा कैसे बदल रही है भारत की शिक्षा प्रणाली...</p>
+                <a href="#" class="read-more">आगे पढ़ें</a>
+            </div>
+        </article>
+    </section>
+
+    <!-- Profile Section (Visible when logged in) -->
+    <section class="profile-section" id="profile-section" style="display: none;">
+        <img id="profile-avatar" class="profile-avatar" src="default-avatar.jpg" alt="प्रोफाइल फोटो">
+        <h2 id="profile-name"></h2>
+        <p id="profile-email"></p>
+        <div class="profile-upload">
+            <input type="file" id="profile-upload" accept="image/*" style="display: none;">
+            <button onclick="document.getElementById('profile-upload').click()">प्रोफाइल फोटो बदलें</button>
+            <button id="upload-btn">अपलोड करें</button>
+        </div>
+    </section>
+
+    <!-- Comments Section -->
+    <section class="comments-section">
+        <h2>टिप्पणियाँ</h2>
+        <form class="comment-form" id="comment-form" style="display: none;">
+            <textarea id="comment-text" placeholder="अपनी टिप्पणी लिखें..."></textarea>
+            <button type="submit" class="auth-btn">टिप्पणी सबमिट करें</button>
+        </form>
+        <div id="comments-list">
+            <!-- Comments will be loaded here -->
+        </div>
+    </section>
+
+    <!-- Admin Panel (Visible to admins) -->
+    <div class="admin-panel" id="admin-panel" style="display: none;">
+        <h3>एडमिन नियंत्रण पैनल</h3>
+        <div id="moderation-panel">
+            <!-- Flagged comments will appear here -->
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="social-links">
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+        </div>
+        <p>&copy; <span id="current-year"></span> माहिती केंद्र. सर्वाधिकार सुरक्षित</p>
+    </footer>
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-storage-compat.js"></script>
+
+    <script>
+        // ======================
+        // Firebase Configuration
+        // ======================
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+            databaseURL: "https://YOUR_PROJECT_ID.firebaseio.com",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_PROJECT_ID.appspot.com",
+            messagingSenderId: "YOUR_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const database = firebase.database();
+        const storage = firebase.storage();
+        const storageRef = storage.ref();
+
+        // ======================
+        // Authentication System
+        // ======================
+        let currentUser = null;
+
+        // Auth State Listener
+        auth.onAuthStateChanged(user => {
+            currentUser = user;
+            const authContainer = document.getElementById('auth-container');
+            const commentForm = document.getElementById('comment-form');
+            const profileSection = document.getElementById('profile-section');
+            
+            if(user) {
+                // User is logged in
+                authContainer.innerHTML = `
+                    <div class="user-info">
+                        <span>${user.email}</span>
+                        <button id="logout-btn" class="auth-btn">लॉग आउट</button>
+                    </div>
+                `;
+                commentForm.style.display = 'block';
+                profileSection.style.display = 'block';
+                
+                // Load user profile
+                loadUserProfile(user.uid);
+                
+                // Check if admin
+                checkAdminStatus(user.uid);
+                
+                // Set up logout button
+                document.getElementById('logout-btn').addEventListener('click', logout);
+            } else {
+                // User is logged out
+                authContainer.innerHTML = `
+                    <div class="auth-form">
+                        <input type="email" id="login-email" placeholder="ईमेल">
+                        <input type="password" id="login-password" placeholder="पासवर्ड">
+                        <button id="login-btn" class="auth-btn">लॉग इन</button>
+                        <p class="auth-toggle">नया खाता? <a href="#" id="show-signup">साइन अप</a></p>
+                        <div class="social-login">
+                            <button id="google-login" class="social-btn">
+                                <i class="fab fa-google"></i> Google
+                            </button>
+                            <button id="fb-login" class="social-btn">
+                                <i class="fab fa-facebook"></i> FB
+                            </button>
+                        </div>
+                    </div>
+                `;
+                commentForm.style.display = 'none';
+                profileSection.style.display = 'none';
+                
+                // Set up auth buttons
+                setupAuthButtons();
+            }
+        });
+
+        function setupAuthButtons() {
+            // Login handler
+            document.getElementById('login-btn')?.addEventListener('click', login);
+            
+            // Signup toggle
+            document.getElementById('show-signup')?.addEventListener('click', (e) => {
+                e.preventDefault();
+                document.getElementById('auth-container').innerHTML = `
+                    <div class="auth-form">
+                        <input type="text" id="signup-name" placeholder="पूरा नाम">
+                        <input type="email" id="signup-email" placeholder="ईमेल">
+                        <input type="password" id="signup-password" placeholder="पासवर्ड">
+                        <button id="signup-btn" class="auth-btn">साइन अप</button>
+                        <p class="auth-toggle">पहले से अकाउंट है? <a href="#" id="show-login">लॉग इन</a></p>
+                    </div>
+                `;
+                document.getElementById('signup-btn').addEventListener('click', signup);
+                document.getElementById('show-login').addEventListener('click', (e) => {
+                    e.preventDefault();
+                    setupAuthButtons();
+                });
+            });
+            
+            // Social logins
+            document.getElementById('google-login')?.addEventListener('click', googleLogin);
+            document.getElementById('fb-login')?.addEventListener('click', facebookLogin);
+        }
+
+        function login() {
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            
+            auth.signInWithEmailAndPassword(email, password)
+                .then(() => alert("सफलतापूर्वक लॉग इन!"))
+                .catch(error => alert("त्रुटि: " + error.message));
+        }
+
+        function signup() {
+            const name = document.getElementById('signup-name').value;
+            const email = document.getElementById('signup-email').value;
+            const password = document.getElementById('signup-password').value;
+            
+            auth.createUserWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                    // Save additional user data
+                    return database.ref('users/' + userCredential.user.uid).set({
+                        name: name,
+                        email: email,
+                        createdAt: firebase.database.ServerValue.TIMESTAMP
+                    });
+                })
+                .then(() => alert("सफलतापूर्वक रजिस्टर!"))
+                .catch(error => alert("त्रुटि: " + error.message));
+        }
+
+        function googleLogin() {
+            const provider = new firebase.auth.GoogleAuthProvider();
+            auth.signInWithPopup(provider)
+                .then((result) => {
+                    // Save additional user data
+                    const user = result.user;
+                    const profile = result.additionalUserInfo.profile;
+                    
+                    return database.ref('users/' + user.uid).set({
+                        name: profile.name,
+                        email: profile.email,
+                        avatar: profile.picture,
+                        createdAt: firebase.database.ServerValue.TIMESTAMP
+                    });
+                })
+                .catch(error => alert("Google लॉगिन त्रुटि: " + error.message));
+        }
+
+        function facebookLogin() {
+            const provider = new firebase.auth.FacebookAuthProvider();
+            provider.addScope('public_profile,email');
+            
+            auth.signInWithPopup(provider)
+                .then((result) => {
+                    // Save additional user data
+                    const user = result.user;
+                    const profile = result.additionalUserInfo.profile;
+                    
+                    return database.ref('users/' + user.uid).set({
+                        name: profile.name,
+                        email: profile.email,
+                        avatar: profile.picture.data.url,
+                        createdAt: firebase.database.ServerValue.TIMESTAMP
+                    });
+                })
+                .catch(error => alert("Facebook लॉगिन त्रुटि: " + error.message));
+        }
+
+        function logout() {
+            auth.signOut().then(() => {
+                alert("सफलतापूर्वक लॉग आउट!");
+                location.reload();
+            });
+        }
+
+        // ======================
+        // User Profile System
+        // ======================
+        function loadUserProfile(uid) {
+            database.ref('users/' + uid).once('value').then(snapshot => {
+                const userData = snapshot.val();
+                if(userData) {
+                    document.getElementById('profile-name').textContent = userData.name || 'अतिथि';
+                    document.getElementById('profile-email').textContent = userData.email;
+                    
+                    if(userData.avatar) {
+                        document.getElementById('profile-avatar').src = userData.avatar;
+                    }
+                    
+                    // Set up profile picture upload
+                    setupProfileUpload(uid);
+                }
+            });
+        }
+
+        function setupProfileUpload(uid) {
+            const uploadInput = document.getElementById('profile-upload');
+            const uploadBtn = document.getElementById('upload-btn');
+            
+            // Preview image before upload
+            uploadInput.addEventListener('change', (e) => {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    document.getElementById('profile-avatar').src = event.target.result;
+                };
+                reader.readAsDataURL(e.target.files[0]);
+            });
+            
+            // Handle upload
+            uploadBtn.addEventListener('click', () => {
+                const file = uploadInput.files[0];
+                if (!file) {
+                    alert("कृपया एक फोटो चुनें");
+                    return;
+                }
+                
+                const uploadTask = storageRef.child(`profile_pics/${uid}`).put(file);
+                
+                uploadTask.on('state_changed',
+                    (snapshot) => {
+                        // Progress tracking
+                        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                        console.log('Upload progress: ' + progress + '%');
+                    },
+                    (error) => {
+                        alert("अपलोड त्रुटि: " + error.message);
+                    },
+                    () => {
+                        // Get download URL
+                        uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+                            // Update user profile
+                            database.ref('users/' + uid).update({
+                                avatar: downloadURL
+                            });
+                            
+                            // Update auth profile
+                            currentUser.updateProfile({
+                                photoURL: downloadURL
+                            });
+                            
+                            alert("प्रोफाइल फोटो सफलतापूर्वक अपडेट हुई!");
+                        });
+                    }
+                );
+            });
+        }
+
+        // ======================
+        // Comment System
+        // ======================
+        document.getElementById('comment-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            if(!currentUser) {
+                alert("टिप्पणी करने के लिए कृपया लॉग इन करें");
+                return;
+            }
+
+            const commentText = document.getElementById('comment-text').value;
+            const timestamp = new Date().toISOString();
+            
+            database.ref('comments').push({
+                userId: currentUser.uid,
+                userEmail: currentUser.email,
+                text: commentText,
+                timestamp: timestamp
+            }).then(() => {
+                document.getElementById('comment-text').value = "";
+            });
+        });
+
+        // Load Comments
+        function loadComments() {
+            database.ref('comments').orderByChild('timestamp').on('value', snapshot => {
+                let commentsHTML = "";
+                snapshot.forEach(childSnapshot => {
+                    const comment = childSnapshot.val();
+                    commentsHTML += `
+                        <div class="comment">
+                            <h4>${comment.userEmail}</h4>
+                            <p>${comment.text}</p>
+                            <small>${new Date(comment.timestamp).toLocaleString()}</small>
+                            <div class="comment-actions">
+                                <button class="flag-btn" data-id="${childSnapshot.key}">🚩 रिपोर्ट</button>
+                            </div>
+                        </div>
+                    `;
+                });
+                document.getElementById('comments-list').innerHTML = commentsHTML;
+                
+                // Set up flag buttons
+                document.querySelectorAll('.flag-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const commentId = e.target.dataset.id;
+                        database.ref('comments/' + commentId + '/flags').push({
+                            userId: currentUser.uid,
+                            timestamp: Date.now()
+                        });
+                        alert("टिप्पणी रिपोर्ट की गई!");
+                    });
+                });
+            });
+        }
+
+        // ======================
+        // Admin Features
+        // ======================
+        function checkAdminStatus(uid) {
+            database.ref('admins/' + uid).once('value').then(snapshot => {
+                if(snapshot.exists()) {
+                    document.getElementById('admin-panel').style.display = 'block';
+                    loadModerationQueue();
+                }
+            });
+        }
+
+        function loadModerationQueue() {
+            database.ref('comments').orderByChild('flagCount').startAt(1).on('value', snapshot => {
+                let moderationHTML = '';
+                snapshot.forEach(child => {
+                    const comment = child.val();
+                    moderationHTML += `
+                        <div class="flagged-comment">
+                            <p>${comment.text}</p>
+                            <small>${comment.userEmail} | ${comment.flagCount || 0} रिपोर्ट</small>
+                            <div class="moderation-actions">
+                                <button class="approve-btn" data-id="${child.key}">अप्रूव</button>
+                                <button class="delete-btn" data-id="${child.key}">डिलीट</button>
+                            </div>
+                        </div>
+                    `;
+                });
+                document.getElementById('moderation-panel').innerHTML = moderationHTML;
+                
+                // Set up moderation buttons
+                document.querySelectorAll('.approve-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const commentId = e.target.dataset.id;
+                        database.ref('comments/' + commentId + '/flags').remove()
+                            .then(() => alert("टिप्पणी अप्रूव की गई!"));
+                    });
+                });
+                
+                document.querySelectorAll('.delete-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const commentId = e.target.dataset.id;
+                        database.ref('comments/' + commentId).remove()
+                            .then(() => alert("टिप्पणी डिलीट की गई!"));
+                    });
+                });
+            });
+        }
+
+        // ======================
+        // Initialize App
+        // ======================
+        // Set current year
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+        
+        // Load comments
+        loadComments();
+        
+        // Set up auth buttons if not logged in
+        if(!currentUser) {
+            setupAuthButtons();
+        }
+    </script>
+</body>
+</html>
